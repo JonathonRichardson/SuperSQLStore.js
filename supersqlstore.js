@@ -81,7 +81,7 @@ SuperSQLStore.ObservableTable = Classify.newClass({
         var rowsArray = [];
         config = config || {};
 
-        var rowConstructor = ObservableRow;
+        var rowConstructor = SuperSQLStore.ObservableRow;
         if ('rowConstructor' in config) {
             rowConstructor = config.rowConstructor;
         }
