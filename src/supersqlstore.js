@@ -1,5 +1,3 @@
-var SuperSQLStore = SuperSQLStore || {};
-
 SuperSQLStore.ObservableRow = Classify.newClass({
     constructor: function(row) {
         var self = this;
@@ -111,3 +109,6 @@ SuperSQLStore.ObservableTable = Classify.newClass({
         }
     }
 });
+
+
+SuperSQLStore.Version = '{{VERSION}}';

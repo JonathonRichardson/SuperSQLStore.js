@@ -59,7 +59,7 @@ gulp.task('js', ['clean', 'bump'], function() {
        name: false,
        deps: ['jquery', 'underscore', 'knockout'],
        args: ['$',      '_',          'ko'],
-       exports: 'Classify'
+       exports: 'SuperSQLStore'
      }))
     .pipe(eol())
     .pipe(rename('supersqlstore.js'))
