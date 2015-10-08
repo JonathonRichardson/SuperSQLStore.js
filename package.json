@@ -1,0 +1,36 @@
+{
+  "name": "SuperSQLStore",
+  "version": "0.0.2",
+  "description": "Advanced observable tables and rows.",
+  "license": "Apache-2.0",
+  "main": "index.js",
+  "author": "Jonathon Richardson",
+  "private": true,
+  "dependencies": {
+    "babel": "^5.8.23",
+    "bower": "^1.5.2",
+    "knockout": "^3.3.0"
+  },
+  "devDependencies": {
+    "del": "^2.0.2",
+    "gulp": "^3.9.0",
+    "gulp-autoprefixer": "^3.0.2",
+    "gulp-babel": "^5.2.1",
+    "gulp-bump": "^1.0.0",
+    "gulp-concat": "^2.6.0",
+    "gulp-eol": "^0.1.1",
+    "gulp-insert": "^0.5.0",
+    "gulp-jshint": "^1.11.2",
+    "gulp-livereload": "^3.8.1",
+    "gulp-minify-css": "^1.2.1",
+    "gulp-module-wrapper": "^0.3.6",
+    "gulp-notify": "^2.2.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-replace": "^0.5.4",
+    "gulp-requirejs": "^0.1.3",
+    "gulp-ruby-sass": "^2.0.4",
+    "gulp-uglify": "^1.4.1",
+    "jquery": "^2.1.4",
+    "underscore": "^1.8.3"
+  }
+}
