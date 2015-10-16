@@ -103,7 +103,7 @@ SuperSQLStore.ObservableTable = Classify.newClass({
 
             ko.utils.arrayForEach(this.rows(), function(row) {
                 rows.push(row.getRawRowData());
-            })
+            });
 
             return rows;
         }
