@@ -1,6 +1,9 @@
 SuperSQLStore.ObservableRow = Classify.newClass({
-    constructor: function(row) {
+    constructor: function(config) {
         var self = this;
+
+        config = config || {};
+        var row = config.row;
         self._originalData = row;
         self._columns = {};
 
@@ -75,7 +78,9 @@ SuperSQLStore.ObservableRow = Classify.newClass({
 
 
 SuperSQLStore.ObservableTable = Classify.newClass({
-    constructor: function(rows, config) {
+    constructor: function(config) {
+        config = config || {};
+        var rows = config.rows;
         var rowsArray = [];
         config = config || {};
 
