@@ -10,14 +10,11 @@ SuperSQLStore.ObservableRow = Classify.newClass({
         // Loop through the properties on the row to make observable versions of each column.
         jQuery.each(_.keys(row), function(index, propertyName) {
             var value = row[propertyName];
-            if (value === null) {
-                value = "";
-            }
 
             // Filter out non-primative properties, as well as properties that start with an underscore
             if ((!_.isArray(value) && (_.keys(value)).length === 0) && (!propertyName.toString().match(/^_/))) {
                 //TODO: Eventually, handle the loading of urn link values.
-                if ( !value.toString().match(/^urn:/)) {
+                if ( (value === null) || !value.toString().match(/^urn:/)) {
                     self[propertyName] = ko.observable(value);
                     self._columns[propertyName] = true;
                 }
