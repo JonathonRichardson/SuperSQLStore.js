@@ -2,22 +2,22 @@ var SuperSQLStore = {};
 (function() {
 
 SuperSQLStore.ObservableRow = Classify.newClass({
-    constructor: function(row) {
+    constructor: function(config) {
         var self = this;
+
+        config = config || {};
+        var row = config.row;
         self._originalData = row;
         self._columns = {};
 
         // Loop through the properties on the row to make observable versions of each column.
         jQuery.each(_.keys(row), function(index, propertyName) {
             var value = row[propertyName];
-            if (value === null) {
-                value = "";
-            }
 
             // Filter out non-primative properties, as well as properties that start with an underscore
             if ((!_.isArray(value) && (_.keys(value)).length === 0) && (!propertyName.toString().match(/^_/))) {
                 //TODO: Eventually, handle the loading of urn link values.
-                if ( !value.toString().match(/^urn:/)) {
+                if ( (value === null) || !value.toString().match(/^urn:/)) {
                     self[propertyName] = ko.observable(value);
                     self._columns[propertyName] = true;
                 }
@@ -49,9 +49,10 @@ SuperSQLStore.ObservableRow = Classify.newClass({
             var hasBeenModified = false;
             jQuery.each(this._columns, function(key) {
                 if (self._originalData[key] !== self.getColumn(key)) {
-
+                    hasBeenModified = true;
                 }
-            })
+            });
+            return hasBeenModified;
         },
         columnHasBeenModified: function(column) {
             if (self._originalData[column] !== self.getColumn(column)) {
@@ -78,7 +79,9 @@ SuperSQLStore.ObservableRow = Classify.newClass({
 
 
 SuperSQLStore.ObservableTable = Classify.newClass({
-    constructor: function(rows, config) {
+    constructor: function(config) {
+        config = config || {};
+        var rows = config.rows;
         var rowsArray = [];
         config = config || {};
 
@@ -88,7 +91,9 @@ SuperSQLStore.ObservableTable = Classify.newClass({
         }
 
         jQuery.each(rows, function (index, value) {
-            rowsArray.push(new rowConstructor(value));
+            rowsArray.push(new rowConstructor({
+                row: value
+            }));
         });
 
         this.rows = ko.observableArray(rowsArray);
@@ -106,7 +111,7 @@ SuperSQLStore.ObservableTable = Classify.newClass({
 
             ko.utils.arrayForEach(this.rows(), function(row) {
                 rows.push(row.getRawRowData());
-            })
+            });
 
             return rows;
         }
@@ -114,7 +119,7 @@ SuperSQLStore.ObservableTable = Classify.newClass({
 });
 
 
-SuperSQLStore.Version = '0.0.4';
+SuperSQLStore.Version = '0.0.6';
 
 
 })();
