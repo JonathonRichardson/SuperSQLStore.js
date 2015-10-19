@@ -46,9 +46,10 @@ SuperSQLStore.ObservableRow = Classify.newClass({
             var hasBeenModified = false;
             jQuery.each(this._columns, function(key) {
                 if (self._originalData[key] !== self.getColumn(key)) {
-
+                    hasBeenModified = true;
                 }
-            })
+            });
+            return hasBeenModified;
         },
         columnHasBeenModified: function(column) {
             if (self._originalData[column] !== self.getColumn(column)) {
