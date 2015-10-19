@@ -88,7 +88,9 @@ SuperSQLStore.ObservableTable = Classify.newClass({
         }
 
         jQuery.each(rows, function (index, value) {
-            rowsArray.push(new rowConstructor(value));
+            rowsArray.push(new rowConstructor({
+                row: value
+            }));
         });
 
         this.rows = ko.observableArray(rowsArray);
