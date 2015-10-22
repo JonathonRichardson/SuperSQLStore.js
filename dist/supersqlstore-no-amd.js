@@ -119,7 +119,7 @@ SuperSQLStore.ObservableTable = Classify.newClass({
 });
 
 
-SuperSQLStore.Version = '0.0.6';
+SuperSQLStore.Version = '0.0.7';
 
 
 })();

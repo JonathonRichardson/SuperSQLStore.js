@@ -1,4 +1,4 @@
-define(["require","exports","module","jquery","underscore","knockout"],function(require,exports,module,$,_,ko){
+define(["require","exports","module","jquery","underscore","knockout","classify"],function(require,exports,module,$,_,ko,Classify){
 
 var SuperSQLStore = {};
 SuperSQLStore.ObservableRow = Classify.newClass({
@@ -119,7 +119,7 @@ SuperSQLStore.ObservableTable = Classify.newClass({
 });
 
 
-SuperSQLStore.Version = '0.0.6';
+SuperSQLStore.Version = '0.0.7';
 
 return SuperSQLStore;
 

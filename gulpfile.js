@@ -57,8 +57,8 @@ gulp.task('js', ['clean', 'bump'], function() {
   var amd = amdcode.pipe(insert.prepend("var SuperSQLStore = {};" + EOL))
     .pipe(wrapper({
        name: false,
-       deps: ['jquery', 'underscore', 'knockout'],
-       args: ['$',      '_',          'ko'],
+       deps: ['jquery', 'underscore', 'knockout', 'classify'],
+       args: ['$',      '_',          'ko',       'Classify'],
        exports: 'SuperSQLStore'
      }))
     .pipe(eol())
