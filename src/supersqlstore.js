@@ -111,9 +111,72 @@ SuperSQLStore.ObservableTable = Classify.newClass({
             });
 
             return rows;
+        },
+        // Give us a computed that tracks modifications.
+        changedRowsRaw: function() {
+
+            var changedRows = _.filter(this.rows(), function(row) {
+                if ( row.hasBeenModified() ) {
+                    return true;
+                }
+                else {
+                    return false;
+                }
+            });
+
+            changedRows = _.map(changedRows, function(row) {
+                return row.getRawRowData();
+            });
+
+            return changedRows;
         }
     }
 });
 
+SuperSQLStore.IndexedObservableTable = Classify.newClass({
+    parent: SuperSQLStore.ObservableTable,
+    constructor: function(config) {
+        var self = this;
+        if (!('key' in config)) {
+            throw "You need to supply a key to index on in an IndexedObservableTable";
+        }
+        this.keyForIndex = config.key;
+
+        // Build the index
+        this.keyIndex = {};
+        _.each(this.rows(), function(row, index) {
+            self.keyIndex[ko.unwrap(row[self.keyForIndex])] = index;
+        });
+
+        // Ensure that the index is up to date.
+        this.rows.subscribe(function(changes) {
+            _.each(changes, function(change) {
+                //  Note: change is of the following form:
+                //     change = {
+                //         index:  3,        // index of the change.
+                //         status: 'added',  // 'added', 'deleted'
+                //         moved:  1,        // optional: the index to which this element has moved
+                //         value:  {}        // Value of the array element
+                var keyValue = ko.unwrap(change.value[self.keyForIndex]);
+                var index    = self.keyIndex;
+
+                if ( 'moved' in change ) {
+                    index[keyValue] = change.moved;
+                }
+                else if ( status === 'added' ) {
+                    index[keyValue] = change.index;
+                }
+                else if ( status === 'deleted' ) {
+                    delete index[keyValue];
+                }
+            });
+        }, null, "arrayChange");
+    },
+    methods: {
+        getRowByKey: function(key) {
+            return this.rows()[this.keyIndex[key]];
+        }
+    }
+});
 
 SuperSQLStore.Version = '{{VERSION}}';
