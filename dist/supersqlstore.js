@@ -81,22 +81,21 @@ SuperSQLStore.ObservableRow = Classify.newClass({
 SuperSQLStore.ObservableTable = Classify.newClass({
     constructor: function(config) {
         config = config || {};
-        var rows = config.rows;
-        var rowsArray = [];
-        config = config || {};
 
         var rowConstructor = SuperSQLStore.ObservableRow;
         if ('rowConstructor' in config) {
             rowConstructor = config.rowConstructor;
         }
 
-        jQuery.each(rows, function (index, value) {
-            rowsArray.push(new rowConstructor({
-                row: value
-            }));
-        });
-
-        this.rows = ko.observableArray(rowsArray);
+        var rows = [];
+        if (!_.isArray(config.rows)) {
+            rows = _.map(config.rows, function(row) {
+                return new rowConstructor({
+                    row: value
+                })
+            });
+        }
+        this.rows = ko.observableArray(rows);
     },
     methods: {
         each: function(callback) {
@@ -166,10 +165,10 @@ SuperSQLStore.IndexedObservableTable = Classify.newClass({
                 if ( 'moved' in change ) {
                     index[keyValue] = change.moved;
                 }
-                else if ( status === 'added' ) {
+                else if ( change.status === 'added' ) {
                     index[keyValue] = change.index;
                 }
-                else if ( status === 'deleted' ) {
+                else if ( change.status === 'deleted' ) {
                     delete index[keyValue];
                 }
             });
@@ -182,7 +181,7 @@ SuperSQLStore.IndexedObservableTable = Classify.newClass({
     }
 });
 
-SuperSQLStore.Version = '0.0.10';
+SuperSQLStore.Version = '0.0.12';
 
 return SuperSQLStore;
 

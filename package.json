@@ -1,6 +1,6 @@
 {
   "name": "SuperSQLStore",
-  "version": "0.0.10",
+  "version": "0.0.12",
   "description": "Advanced observable tables and rows.",
   "license": "Apache-2.0",
   "main": "index.js",
